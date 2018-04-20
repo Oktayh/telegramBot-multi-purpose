@@ -3,16 +3,18 @@ import json
 import requests
 from func import *
 
-TOKEN = open("creds").readline()
-URL=str(TOKEN).strip()
+Creds = open("creds").readline()
+TOKEN = str(Creds).strip()
 
-TELEGRAM = requests.get(URL+"getUpdates").json()
+BASE = "https://api.telegram.org/"
+
+TELEGRAM = requests.get(BASE+"bot"+TOKEN+"/getUpdates").json()
 LASTRES = len(TELEGRAM["result"])-1
-LASTREPLIED = LASTRES
+LASTREPLIED = LASTRES -1 ## For testing delete me
 
 while True:
 
-    TELEGRAM = requests.get(URL+"getUpdates").json()
+    TELEGRAM = requests.get(BASE+"bot"+TOKEN+"/getUpdates").json()
     LASTRES = len(TELEGRAM["result"])-1
 
     if LASTRES == LASTREPLIED:
@@ -49,7 +51,7 @@ while True:
 
 
         date                     = message["date"]
-        caption                  = message.get["caption"]
+        caption                  = message.get("caption")
         text                     = message.get("text")
 
 
