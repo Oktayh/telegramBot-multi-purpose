@@ -4,7 +4,7 @@ TOKEN = open("creds").readline().strip()
 BASE="https://api.telegram.org/"
 
 def sendMessage(chatid,text):
-    requests.get(BASE+'sendMessage?chat_id='+str(chatid)+'&text='+text)
+    requests.get(BASE+"bot"+TOKEN+"/sendMessage?chat_id="+str(chatid)+"&text="+text)
 
 def getFile(file_id):
     file_path = requests.get(BASE+"bot"+TOKEN+"/getFile?file_id="+file_id).json()
