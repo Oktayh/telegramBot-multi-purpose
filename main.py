@@ -8,29 +8,37 @@ URL=str(TOKEN).strip()
 
 TELEGRAM = requests.get(URL+"getUpdates").json()
 LASTRES = len(TELEGRAM["result"])-1
+LASTREPLIED = LASTRES
 
 while True:
-    update_id                = TELEGRAM["result"][LASTRES]["update_id"]
 
-    message                  = TELEGRAM["result"][LASTRES]["message"]
-    message_id               = message["message_id"]
+    TELEGRAM = requests.get(URL+"getUpdates").json()
+    LASTRES = len(TELEGRAM["result"])-1
 
-    messageFrom              = message["from"]
-    messageFromId            = messageFrom["id"]
-    messageFromIs_bot        = messageFrom["is_bot"]
-    messageFromFirst_name    = messageFrom["first_name"]
-    messageFromUsername      = messageFrom["username"]
-    messageFromLanguage_code = messageFrom["language_code"]
+    if LASTRES == LASTREPLIED:
+        continue
+    else:
+        LASTREPLIED +=1
 
-    messageChat              = message["chat"]
-    messageChatId            = messageChat["id"]
-    messageChatFirst_name    = messageChat["first_name"]
-    messageChatUsername      = messageChat["username"]
-    messageChatType          = messageChat["type"]
+        update_id                = TELEGRAM["result"][LASTREPLIED]["update_id"]
 
-    date                     = message["date"]
-    text                     = message["text"]
+        message                  = TELEGRAM["result"][LASTREPLIED]["message"]
+        message_id               = message["message_id"]
 
-    sendMessage(messageChatId,"Hello World")
+        messageFrom              = message["from"]
+        messageFromId            = messageFrom["id"]
+        messageFromIs_bot        = messageFrom["is_bot"]
+        messageFromFirst_name    = messageFrom["first_name"]
+        messageFromUsername      = messageFrom["username"]
+        messageFromLanguage_code = messageFrom["language_code"]
 
-    break
+        messageChat              = message["chat"]
+        messageChatId            = messageChat["id"]
+        messageChatFirst_name    = messageChat["first_name"]
+        messageChatUsername      = messageChat["username"]
+        messageChatType          = messageChat["type"]
+
+        date                     = message["date"]
+        text                     = message["text"]
+
+        print(text)
