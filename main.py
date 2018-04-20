@@ -22,23 +22,34 @@ while True:
 
         update_id                = TELEGRAM["result"][LASTREPLIED]["update_id"]
 
-        message                  = TELEGRAM["result"][LASTREPLIED]["message"]
-        message_id               = message["message_id"]
+        message                  = TELEGRAM["result"][LASTREPLIED].get("message")
+        if message != None:
+            message_id               = message["message_id"]
+            messageFrom              = message["from"]
+            messageFromId            = messageFrom["id"]
+            messageFromIs_bot        = messageFrom["is_bot"]
+            messageFromFirst_name    = messageFrom["first_name"]
+            messageFromUsername      = messageFrom["username"]
+            messageFromLanguage_code = messageFrom["language_code"]
 
-        messageFrom              = message["from"]
-        messageFromId            = messageFrom["id"]
-        messageFromIs_bot        = messageFrom["is_bot"]
-        messageFromFirst_name    = messageFrom["first_name"]
-        messageFromUsername      = messageFrom["username"]
-        messageFromLanguage_code = messageFrom["language_code"]
+            messageChat              = message["chat"]
+            messageChatId            = messageChat["id"]
+            messageChatFirst_name    = messageChat["first_name"]
+            messageChatUsername      = messageChat["username"]
+            messageChatType          = messageChat["type"]
 
-        messageChat              = message["chat"]
-        messageChatId            = messageChat["id"]
-        messageChatFirst_name    = messageChat["first_name"]
-        messageChatUsername      = messageChat["username"]
-        messageChatType          = messageChat["type"]
+            photo                    = message.get("photo")
+
+        messageDocument          = message.get("document")
+        if messageDocument != None:
+            mime_type                = messageDocument["mime_type"]
+            fileName                 = messageDocument["file_name"]
+            file_id                  = messageDocument["file_id"]
+            file_size                = messageDocument["file_size"]
+
 
         date                     = message["date"]
-        text                     = message["text"]
+        caption                  = message.get["caption"]
+        text                     = message.get("text")
 
-        print(text)
+
